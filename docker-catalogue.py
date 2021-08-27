@@ -33,7 +33,7 @@ with DAG(dag_id='docker_dag', default_args=default_args, catchup=False) as dag:
       task_id='print_current_date',
       bash_command='date'
     )
-    t2 = KubernetesPodOperator(namespace='default',
+    t2 = KubernetesPodOperator(
       task_id="transfrom-job",
       namespace='airflow',
       image="molgenis/molgenis-py-catalogue-transform:1.0.15",
