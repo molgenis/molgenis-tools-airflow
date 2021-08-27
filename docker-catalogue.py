@@ -1,3 +1,4 @@
+from kubernetes.client import models as k8s
 from airflow import DAG
 from airflow.operators.bash_operator import BashOperator
 from datetime import datetime, timedelta
