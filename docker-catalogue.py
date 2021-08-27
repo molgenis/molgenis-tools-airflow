@@ -21,11 +21,11 @@ init_environments = [
   k8s.V1EnvVar(name='MG_CATALOGUE_NETWORKS', value='LifeCycle, ATHLETE, LongITools'), 
   k8s.V1EnvVar(name='MG_CATALOGUE_COHORTS', value='NFBC1966, NFBC1986, KANC'),
   k8s.V1EnvVar(name='MG_CATALOGUE_URL_STAGING', value='https://data-catalogue-staging.molgeniscloud.org/'),
-  k8s.V1EnvVar(name='MG_CATALOGUE_USERNAME_STAGING', value={{ dag_run.config.staging.username }}),
-  k8s.V1EnvVar(name='MG_CATALOGUE_PASSWORD_STAGING', value={{ dag_run.config.staging.password }}),
+  k8s.V1EnvVar(name='MG_CATALOGUE_USERNAME_STAGING', value="{{ dag_run.config.staging.username }}"),
+  k8s.V1EnvVar(name='MG_CATALOGUE_PASSWORD_STAGING', value="{{ dag_run.config.staging.password }}"),
   k8s.V1EnvVar(name='MG_CATALOGUE_URL_PROD', value='https://emx2.test.molgenis.org/'),
-  k8s.V1EnvVar(name='MG_CATALOGUE_USERNAME_PROD', value={{ dag_run.config.catalogue.username }}),
-  k8s.V1EnvVar(name='MG_CATALOGUE_PASSWORD_PROD', value={{ dag_run.config.catalogue.password }})
+  k8s.V1EnvVar(name='MG_CATALOGUE_USERNAME_PROD', value="{{ dag_run.config.catalogue.username }}"),
+  k8s.V1EnvVar(name='MG_CATALOGUE_PASSWORD_PROD', value="{{ dag_run.config.catalogue.password }}")
 ]
 
 with DAG(dag_id='catalogue-transform_dag', default_args=default_args, catchup=False) as dag:
