@@ -41,7 +41,7 @@ with DAG(dag_id='docker_dag', default_args=default_args, catchup=False) as dag:
       # cmds=["Python","-c"],
       # arguments=["print('hello world')"],
       # labels={"foo": "bar"},
-      env=init_environments,
+      env_vars=init_environments,
       name="transform-job",
       get_logs=True,
       dag=dag
