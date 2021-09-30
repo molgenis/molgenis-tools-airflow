@@ -23,3 +23,13 @@ You can override the values by submitting this block of `json`.
 ```
 
 You can leave out the parameters you do not want to override.
+
+```json
+{
+  "dag_run.conf.catalogue_url": "https://haakma.org",
+  "dag_run.conf.etl_username": "admin",
+  "dag_run.conf.etl_password": "xxxxx",
+  "dag_run.conf.sync_sources": "COHORT_A",
+  "dag_run.conf.sync_target": "UMCG"
+}
+```
