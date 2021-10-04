@@ -17,12 +17,20 @@ default_args = {
   'retry_delay'           : timedelta(minutes=5)
 }
 
+init_environments = [
+  k8s.V1EnvVar(name='MG_CATALOGUE_URL', value="{{ dag_run.conf.catalogue_url | default('https://emx2.dev.molgenis.org/', true) }}"),
+  k8s.V1EnvVar(name='MG_ETL_USERNAME', value="{{ dag_run.conf.etl_username | default('admin', true) }}"),
+  k8s.V1EnvVar(name='MG_ETL_PASSWORD', value="{{ dag_run.conf.etl_password | default('xxxx', true) }}"),
+  k8s.V1EnvVar(name='MG_SYNC_SOURCES', value="{{ dag_run.conf.sync_sources | default('', true) }}"),
+  k8s.V1EnvVar(name='MG_SYNC_TARGET', value="{{ dag_run.conf.sync_target | default('', true) }}"),
+ ]
+
 with DAG(dag_id='cohorts-etl_dag', default_args=default_args, catchup=False) as dag:
     task = KubernetesPodOperator(
       task_id="cohorts-etl-job",
       namespace='airflow',
       image="molgenis/molgenis-py-cohorts-etl:latest",
-      env_vars={'MG_CATALOGUE_URL': '{{ var.value.catalogue_url }}', 'MG_ETL_USERNAME': '{{ var.value.etl_username }}', 'MG_ETL_PASSWORD': '{{ var.value.etl_password }}', 'MG_SYNC_SOURCES': '{{ var.value.sync_sources }}', 'MG_SYNC_TARGET': '{{ var.value.sync_target }}'},  
+      env_vars=init_environments,
       name="cohort-etl-job",
       get_logs=True,
       dag=dag
